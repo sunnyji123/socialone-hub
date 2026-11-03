@@ -1,6 +1,0 @@
-{
-  "name": "SocialOne - All-in-One Social Platform",
-  "description": "The unified social media platform combining short videos, social feed & communities, photos & stories, and real-time private messaging with mandatory Google Sign-In.",
-  "requestFramePermissions": ["camera", "microphone"],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
