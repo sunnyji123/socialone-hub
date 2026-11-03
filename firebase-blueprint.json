@@ -1,0 +1,159 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User account and profile details",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "displayName": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 120 },
+        "photoURL": { "type": "string", "maxLength": 2048 },
+        "username": { "type": "string", "maxLength": 50, "pattern": "^[a-zA-Z0-9_.]+$" },
+        "bio": { "type": "string", "maxLength": 300 },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "isSuspended": { "type": "boolean" },
+        "followersCount": { "type": "number" },
+        "followingCount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "email", "username", "role"]
+    },
+    "Post": {
+      "title": "Post",
+      "description": "Facebook/Instagram style social post",
+      "type": "object",
+      "properties": {
+        "authorId": { "type": "string", "maxLength": 128 },
+        "authorName": { "type": "string", "maxLength": 100 },
+        "authorPhoto": { "type": "string", "maxLength": 2048 },
+        "authorUsername": { "type": "string", "maxLength": 50 },
+        "content": { "type": "string", "maxLength": 2000 },
+        "mediaUrls": { "type": "array" },
+        "mediaType": { "type": "string", "enum": ["none", "image", "video"] },
+        "likesCount": { "type": "number" },
+        "commentsCount": { "type": "number" },
+        "sharesCount": { "type": "number" },
+        "groupId": { "type": "string", "maxLength": 128 },
+        "pageId": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["authorId", "authorName", "content", "likesCount", "commentsCount", "sharesCount"]
+    },
+    "ShortVideo": {
+      "title": "ShortVideo",
+      "description": "TikTok-style vertical short video",
+      "type": "object",
+      "properties": {
+        "creatorId": { "type": "string", "maxLength": 128 },
+        "creatorName": { "type": "string", "maxLength": 100 },
+        "creatorPhoto": { "type": "string", "maxLength": 2048 },
+        "creatorUsername": { "type": "string", "maxLength": 50 },
+        "videoUrl": { "type": "string", "maxLength": 2048 },
+        "caption": { "type": "string", "maxLength": 500 },
+        "musicTitle": { "type": "string", "maxLength": 100 },
+        "likesCount": { "type": "number" },
+        "commentsCount": { "type": "number" },
+        "sharesCount": { "type": "number" },
+        "viewsCount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["creatorId", "creatorName", "videoUrl", "caption", "likesCount", "viewsCount"]
+    },
+    "Story": {
+      "title": "Story",
+      "description": "Instagram-style temporary 24-hour story",
+      "type": "object",
+      "properties": {
+        "authorId": { "type": "string", "maxLength": 128 },
+        "authorName": { "type": "string", "maxLength": 100 },
+        "authorPhoto": { "type": "string", "maxLength": 2048 },
+        "mediaUrl": { "type": "string", "maxLength": 2048 },
+        "caption": { "type": "string", "maxLength": 300 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "expiresAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["authorId", "authorName", "mediaUrl", "createdAt", "expiresAt"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "WhatsApp-style direct or group chat message",
+      "type": "object",
+      "properties": {
+        "conversationId": { "type": "string", "maxLength": 128 },
+        "senderId": { "type": "string", "maxLength": 128 },
+        "senderName": { "type": "string", "maxLength": 100 },
+        "senderPhoto": { "type": "string", "maxLength": 2048 },
+        "content": { "type": "string", "maxLength": 2000 },
+        "type": { "type": "string", "enum": ["text", "image", "audio", "video"] },
+        "mediaUrl": { "type": "string", "maxLength": 2048 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["conversationId", "senderId", "senderName", "content", "type"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "In-app activity notification",
+      "type": "object",
+      "properties": {
+        "recipientId": { "type": "string", "maxLength": 128 },
+        "senderId": { "type": "string", "maxLength": 128 },
+        "senderName": { "type": "string", "maxLength": 100 },
+        "senderPhoto": { "type": "string", "maxLength": 2048 },
+        "type": { "type": "string", "maxLength": 50 },
+        "message": { "type": "string", "maxLength": 300 },
+        "link": { "type": "string", "maxLength": 300 },
+        "isRead": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["recipientId", "senderName", "type", "message", "isRead"]
+    },
+    "Report": {
+      "title": "Report",
+      "description": "Content moderation report",
+      "type": "object",
+      "properties": {
+        "reporterId": { "type": "string", "maxLength": 128 },
+        "reporterEmail": { "type": "string", "maxLength": 120 },
+        "targetType": { "type": "string", "enum": ["post", "video", "user", "comment"] },
+        "targetId": { "type": "string", "maxLength": 128 },
+        "reason": { "type": "string", "maxLength": 500 },
+        "status": { "type": "string", "enum": ["pending", "resolved", "dismissed"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["reporterId", "targetType", "targetId", "reason", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Collection of user profiles"
+    },
+    "/posts/{postId}": {
+      "schema": "Post",
+      "description": "Social feed posts"
+    },
+    "/videos/{videoId}": {
+      "schema": "ShortVideo",
+      "description": "Short vertical videos"
+    },
+    "/stories/{storyId}": {
+      "schema": "Story",
+      "description": "Temporary 24h stories"
+    },
+    "/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Chat messages across direct and group chats"
+    },
+    "/notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "User notifications"
+    },
+    "/reports/{reportId}": {
+      "schema": "Report",
+      "description": "Flagged and reported items for moderation"
+    }
+  }
+}
